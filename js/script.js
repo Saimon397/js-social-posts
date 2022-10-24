@@ -133,8 +133,6 @@ for (let c = 0; c < BtnLike.length; c++) {
         //pusho id del post solo se non è nell'array
         if (!IDLikeArray.includes(IDLike)) {
             IDLikeArray.push(IDLike);
-            //for debug /del/
-            console.log(IDLikeArray);
         }
     });
 };
