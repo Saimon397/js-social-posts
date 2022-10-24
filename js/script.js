@@ -14,12 +14,7 @@ Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 BONUS
 1. Formattare le date in formato italiano (gg/mm/aaaa)
 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
-3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
-Consigli del giorno:
-> Ragioniamo come sempre a step.
-> Prima scriviamo nei commenti la logica in italiano e poi traduciamo in codice.
-> console.log() è nostro amico.
-> Quando un pezzo di codice funziona, chiediamoci se possiamo scomporlo in funzioni più piccole.*/
+3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.*/
 
 const posts = [
     {
@@ -61,7 +56,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": null
+            "image": "https://unsplash.it/300/300?image=30"
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -78,3 +73,42 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+//Creo variabile per richiamare il container
+const containerDom = document.getElementById('container');
+
+//Con un ciclo for genero i post 
+for (let i = 0; i < posts.length; i++) {
+
+    containerDom.innerHTML += `<div class="post">
+                                <div class="post__header">
+                                    <div class="post-meta">                    
+                                        <div class="post-meta__icon">
+                                            <img class="profile-pic" src="${posts[i].author.image}" alt="">                    
+                                        </div>
+                                        <div class="post-meta__data">
+                                            <div class="post-meta__author">${posts[i].author['name']}</div>
+                                            <div class="post-meta__time">${posts[i].created}</div>
+                                        </div>                    
+                                    </div>
+                                </div>
+                                <div class="post__teit">${posts[i].content}</div>
+                                <div class="post__image">
+                                    <img src="${posts[i]['media']}" alt="">
+                                </div>
+                                <div class="post__footer">
+                                    <div class="likes js-likes">
+                                        <div class="likes__cta">
+                                            <a class="like-button  js-like-button" href="#" data-postid="${posts[i].id}">
+                                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                                <span class="like-button__label">Mi Piace</span>
+                                            </a>
+                                        </div>
+                                        <div class="likes__counter">
+                                            Piace a <b id="like-counter-${i}" class="js-likes-counter">${posts[i].likes}</b> persone
+                                        </div>
+                                    </div> 
+                                </div>            
+                            </div>`
+}
+
