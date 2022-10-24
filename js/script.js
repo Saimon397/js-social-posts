@@ -56,7 +56,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": "https://unsplash.it/300/300?image=30"
+            "image": null
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -75,12 +75,12 @@ const posts = [
 ];
 
 //Creo variabile per richiamare il container
-const containerDom = document.getElementById('container');
+const ContainerDOM = document.getElementById('container');
 
-//Con un ciclo for genero i post 
+//Con un ciclo for genero i post da stampare nell'html 
 for (let i = 0; i < posts.length; i++) {
 
-    containerDom.innerHTML += `<div class="post">
+    ContainerDOM.innerHTML += `<div class="post">
                                 <div class="post__header">
                                     <div class="post-meta">                    
                                         <div class="post-meta__icon">
@@ -112,3 +112,31 @@ for (let i = 0; i < posts.length; i++) {
                             </div>`
 }
 
+//Variabile che richiama il bottone like + un array
+const BtnLike = document.getElementsByClassName('like-button');
+//Variabile per incremento dei like
+let likePlus;
+//Array vuoto dove verrano inseriti gli id dei post a cui è stato messo il like
+const IDLikeArray = []
+
+//Con un ciclo for scorro l'array dei bottoni like e ad ognugno add un evento al click
+for (let c = 0; c < BtnLike.length; c++) {
+    //Variabile a cui assegno il contenuto dell'attributo data-postid di BtnLike
+    let IDLike = BtnLike[c].getAttribute('data-postid');
+    BtnLike[c].addEventListener('click', function (event) {
+        //Per disabilitare il funzionamento del tag <a> 
+        event.preventDefault();
+        //Imposto colore al like 
+        BtnLike[c].style.color = 'rgb(0, 223, 107)';
+        //Incremento e stampo i like nell'html
+        likePlus = posts[c].likes;
+        likePlus += 1;
+        document.getElementById(`like-counter-${c}`).innerHTML = likePlus;
+        //pusho id del post solo se non è nell'array
+        if (!IDLikeArray.includes(IDLike)) {
+            IDLikeArray.push(IDLike);
+            //for debug /del/
+            console.log(IDLikeArray);
+        }
+    });
+};
