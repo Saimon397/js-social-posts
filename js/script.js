@@ -99,7 +99,7 @@ for (let i = 0; i < posts.length; i++) {
                                 <div class="post__footer">
                                     <div class="likes js-likes">
                                         <div class="likes__cta">
-                                            <a class="like-button  js-like-button" href="#" data-postid="${posts[i].id}">
+                                            <a class="like-button  js-like-button" href="#nogo" data-postid="${posts[i].id}">
                                                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                                 <span class="like-button__label">Mi Piace</span>
                                             </a>
@@ -123,9 +123,7 @@ const IDLikeArray = []
 for (let c = 0; c < BtnLike.length; c++) {
     //Variabile a cui assegno il contenuto dell'attributo data-postid di BtnLike
     let IDLike = BtnLike[c].getAttribute('data-postid');
-    BtnLike[c].addEventListener('click', function (event) {
-        //Per disabilitare il funzionamento del tag <a> 
-        event.preventDefault();
+    BtnLike[c].addEventListener('click', function () {
         //Imposto colore al like 
         BtnLike[c].style.color = 'rgb(0, 223, 107)';
         //Incremento e stampo i like nell'html
@@ -140,4 +138,3 @@ for (let c = 0; c < BtnLike.length; c++) {
         }
     });
 };
-
