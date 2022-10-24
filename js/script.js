@@ -88,7 +88,7 @@ for (let i = 0; i < posts.length; i++) {
                                         </div>
                                         <div class="post-meta__data">
                                             <div class="post-meta__author">${posts[i].author['name']}</div>
-                                            <div class="post-meta__time">${posts[i].created}</div>
+                                            <div class="post-meta__time">${formatDateITA(posts[i].created)}</div>
                                         </div>                    
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@ for (let i = 0; i < posts.length; i++) {
                                 <div class="post__footer">
                                     <div class="likes js-likes">
                                         <div class="likes__cta">
-                                            <a class="like-button  js-like-button" href="#nogo" data-postid="${posts[i].id}">
+                                            <a class="like-button  js-like-button" href="#" data-postid="${posts[i].id}">
                                                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                                 <span class="like-button__label">Mi Piace</span>
                                             </a>
@@ -119,11 +119,13 @@ let likePlus;
 //Array vuoto dove verrano inseriti gli id dei post a cui è stato messo il like
 const IDLikeArray = []
 
-//Con un ciclo for scorro l'array dei bottoni like e ad ognugno add un evento al click
+//Con un ciclo for scorro l'array dei bottoni like e ad ognuno add un evento al click
 for (let c = 0; c < BtnLike.length; c++) {
     //Variabile a cui assegno il contenuto dell'attributo data-postid di BtnLike
     let IDLike = BtnLike[c].getAttribute('data-postid');
-    BtnLike[c].addEventListener('click', function () {
+    BtnLike[c].addEventListener('click', function (event) {
+        //Per disabilitare il funzionamento del tag <a> 
+        event.preventDefault();
         //Imposto colore al like 
         BtnLike[c].style.color = 'rgb(0, 223, 107)';
         //Incremento e stampo i like nell'html
@@ -133,6 +135,15 @@ for (let c = 0; c < BtnLike.length; c++) {
         //pusho id del post solo se non è nell'array
         if (!IDLikeArray.includes(IDLike)) {
             IDLikeArray.push(IDLike);
+            //for debug /del/
+            console.log(IDLikeArray);
         }
     });
 };
+
+//Funzione per formattare la data italiana
+function formatDateITA(date){
+    date = date.split("-");
+    let DateITA = date[2] + "-" + date[1] + "-" + date[0];
+    return DateITA;
+}
